@@ -1,18 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMessageDTO } from './dto/create-message.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Message } from '../entity/message.entity';
 
 @Injectable()
 export class FeedbackService {
-  private messages = [];
+  constructor(
+    @InjectRepository(Message)
+    private usersRepository: Repository<Message>,
+  ) {}
 
-  getAll() {
-    return this.messages;
+  getAll(): Promise<Message[]> {
+    return this.usersRepository.find();
   }
 
   createMessage(messageDto: CreateMessageDTO) {
-    this.messages.push({
-      ...messageDto,
-      id: Date.now().toString(),
-    });
+    this.usersRepository.save(messageDto);
   }
 }
