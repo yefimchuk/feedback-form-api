@@ -21,7 +21,7 @@ export class FeedbackController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() createMessageDTO: CreateMessageDTO): Promise<void> {
+  create(@Body() createMessageDTO: CreateMessageDTO): Promise<Message> {
     return this.feedbackService.createMessage(createMessageDTO);
   }
 }

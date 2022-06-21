@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateMessageDTO } from './dto/create-message.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -15,15 +15,18 @@ export class FeedbackService {
     return this.usersRepository.createQueryBuilder().getMany();
   }
 
-  async createMessage(messageDto: CreateMessageDTO): Promise<void> {
-    await this.usersRepository
-      .createQueryBuilder()
-      .insert()
-      .into(Message)
-      .values({
-        email: messageDto.email,
-        name: messageDto.name,
-        message: messageDto.message,
-      });
+  async createMessage(messageDto: CreateMessageDTO): Promise<Message> {
+    try {
+      const newUser = new Message();
+      newUser.email = messageDto.email;
+      newUser.name = messageDto.name;
+      newUser.message = messageDto.message;
+      return await this.usersRepository.save(newUser);
+    } catch (e) {
+      throw new InternalServerErrorException(
+        'USER_SAVE_ERROR',
+        'USER_SAVE_ERROR_TYPE',
+      );
+    }
   }
 }
