@@ -12,10 +12,18 @@ export class FeedbackService {
   ) {}
 
   getAll(): Promise<Message[]> {
-    return this.usersRepository.find();
+    return this.usersRepository.createQueryBuilder().getMany();
   }
 
-  createMessage(messageDto: CreateMessageDTO) {
-    this.usersRepository.save(messageDto);
+  async createMessage(messageDto: CreateMessageDTO): Promise<void> {
+    await this.usersRepository
+      .createQueryBuilder()
+      .insert()
+      .into(Message)
+      .values({
+        email: messageDto.email,
+        name: messageDto.name,
+        message: messageDto.message,
+      });
   }
 }
