@@ -9,15 +9,11 @@ import { Message } from './entity/message.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'ec2-176-34-215-248.eu-west-1.compute.amazonaws.com',
-      port: 5432,
+      url: 'postgres://utjsorhawubpdj:51a4b642beec0928e4d015903b91fb22f67e1d5878ad4f9eff45527150b9d436@ec2-176-34-215-248.eu-west-1.compute.amazonaws.com:5432/d5tmu0ucsl5jv1',
       ssl: { rejectUnauthorized: false },
-      username: 'utjsorhawubpdj',
-      password:
-        '51a4b642beec0928e4d015903b91fb22f67e1d5878ad4f9eff45527150b9d436',
-      database: 'd5tmu0ucsl5jv1',
-      entities: [Message],
+      autoLoadEntities: true,
       synchronize: true,
+      entities: ['dist/**/*.entity{.ts,.js}'],
     }),
     FeedbackModule,
   ],
