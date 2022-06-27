@@ -9,11 +9,12 @@ import { Message } from './entity/message.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'ec2-176-34-215-248.eu-west-1.compute.amazonaws.com',
       port: 5432,
-      username: 'postgres',
-      password: '23984723',
-      database: 'feedback-db',
+      username: 'utjsorhawubpdj',
+      password:
+        '51a4b642beec0928e4d015903b91fb22f67e1d5878ad4f9eff45527150b9d436',
+      database: 'd5tmu0ucsl5jv1',
       entities: [Message],
       synchronize: true,
     }),
