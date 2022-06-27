@@ -11,6 +11,7 @@ import { Message } from './entity/message.entity';
       type: 'postgres',
       host: 'ec2-176-34-215-248.eu-west-1.compute.amazonaws.com',
       port: 5432,
+      ssl: { rejectUnauthorized: false },
       username: 'utjsorhawubpdj',
       password:
         '51a4b642beec0928e4d015903b91fb22f67e1d5878ad4f9eff45527150b9d436',
